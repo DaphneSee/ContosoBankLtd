@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/DaphneSee/ContosoBankLtd#readme",
   "dependencies": {
+    "botbuilder": "^3.12.0",
     "restify": "^6.3.4"
   }
 }

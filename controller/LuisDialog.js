@@ -64,6 +64,54 @@ exports.startDialog = function (bot) {
         }).triggerAction({
                         matches: 'BankLocation'
          });
+         bot.dialog('DeleteFav', [
+          function (session, args, next) {
+              if(!isAttachment(session)){
+              session.dialogData.args = args || {};
+              if (!session.conversationData["username"]) {
+                  builder.Prompts.text(session, "Enter a username to setup your account. (Delete)");
+              } else {
+                  next(); // Skip if we already have this info.
+              }
+          }
+          },
+          function (session, results,next) {
+          if (!isAttachment(session)) {
+  
+              session.send("You want to delete one of your favourite foods.");
+  
+              // Pulls out the food entity from the session if it exists
+              var foodEntity = builder.EntityRecognizer.findEntity(session.dialogData.args.intent.entities, 'food');
+  
+              // Checks if the for entity was found
+              if (foodEntity) {
+                  session.send('Deleting \'%s\'...', foodEntity.entity);
+                  food.deleteFavouriteFood(session,session.conversationData['username'],foodEntity.entity); //<--- CALLL WE WANT
+              } else {
+                  session.send("No food identified! Please try again");
+              }
+          }
+      }
+      ]).triggerAction({
+      matches: 'DeleteFav'
+      });
+      bot.dialog('WantFood', function (session, args) {
+          if(!isAttachment(session)){
+                      // Pulls out the food entity from the session if it exists
+          var foodEntity = builder.EntityRecognizer.findEntity(args.intent.entities, 'food');
+          
+                      // Checks if the for entity was found
+          if (foodEntity) {
+              session.send('Looking for restaurants which sell %s...', foodEntity.entity);
+              restaurant.displayRestaurantCards(foodEntity.entity, "auckland", session);
+          } else {
+          session.send("No food identified! Please try again");
+                      }
+                  }
+          
+          }).triggerAction({
+                  matches: 'WantFood'
+      });
     bot.dialog('None', function (session, args) {
             
     session.send('Please try again')
