@@ -1,0 +1,28 @@
+{
+  "name": "contosobankltd",
+  "version": "1.0.0",
+  "description": "chatBot for Contoso Bank ltd",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DaphneSee/ContosoBankLtd.git"
+  },
+  "keywords": [
+    "msa",
+    "contoso",
+    "bank",
+    "chatbot"
+  ],
+  "author": "daphne zhi yi see",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DaphneSee/ContosoBankLtd/issues"
+  },
+  "homepage": "https://github.com/DaphneSee/ContosoBankLtd#readme",
+  "dependencies": {
+    "restify": "^6.3.4"
+  }
+}
