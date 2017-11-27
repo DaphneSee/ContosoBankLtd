@@ -1,5 +1,6 @@
 var builder = require('botbuilder');
 var bankStore = require('./LocationCards');
+var mobile = require('./PersonalDetails');
 // Some sections have been omitted
 
 exports.startDialog = function (bot) {
@@ -27,42 +28,77 @@ exports.startDialog = function (bot) {
     }).triggerAction({
         matches: 'LostPassword'
     });
+    bot.dialog('getMobileNumber', [
+        function (session, args, next) {
+            session.dialogData.args = args || {};        
+            if (!session.conversationData["username"]) {
+                builder.Prompts.text(session, "Enter your username:");                
+            } else {
+                next(); // Skip if we already have this info.
+            }
+        },
+        function (session, results, next) {
+                if (results.response) {
+                    session.conversationData["username"] = results.response;
+                }
 
-    bot.dialog('CheckBalance', function (session, args) {
+                session.send("Obtaining your mobile number.");
+                mobile.displayMobileNumber(session, session.conversationData["username"]);  // <---- THIS LINE HERE IS WHAT WE NEED 
+            }
+    ]).triggerAction({
+        matches: 'getMobileNumber'
+    });
+    bot.dialog('DeleteMobileNo', [
+        function (session, args, next) {
+            session.dialogData.args = args || {};        
+            if (!session.conversationData["username"]) {
+                builder.Prompts.text(session, "Enter your username to delete your mobile number:");                
+            } else {
+                next(); // Skip if we already have this info.
+            }
+        },
+        function (session, results, next) {
+            session.send("you want to delete your mobile number");
+                if (results.response) {
+                    session.conversationData["username"] = results.response;
+                }
+
+                session.send("Deleting your mobile number.");
+                //sends this to personal details.
+                mobile.deleteMobileNumber(session, session.conversationData["username"]);  // <---- THIS LINE HERE IS WHAT WE NEED 
+            }
+    ]).triggerAction({
+        matches: 'DeleteMobileNo'
+    });
+    bot.dialog('setMobileNumber', [
+                function (session, args, next) {
+                    session.dialogData.args = args || {};        
+                    if (!session.conversationData["username"]) {
+                        builder.Prompts.text(session, "Enter a username to set your mobile number.");                
+                    } else {
+                        next(); // Skip if we already have this info.
+                    }
+                },
+                function (session, results, next) {
         
-                session.send('do you have an online account?')
-        
-                    // Pulls out the food entity from the session if it exists
-                    //var foodEntity = builder.EntityRecognizer.findEntity(args.intent.entities, 'food');
-        
-                    // Checks if the for entity was found
-                    //if (foodEntity) {
-                      //  session.send('Calculating calories in %s...', foodEntity.entity);
-                       // Here you would call a function to get the foods nutrition information
-        
-                    //} else {
-                      //  session.send("No food identified! Please try again");
-                    //}
-            }).triggerAction({
-                matches: 'CheckBalance'
+                        if (results.response) {
+                            session.conversationData["username"] = results.response;
+                        }
+                        // Pulls out the food entity from the session if it exists
+                        var mobileNoEntity = builder.EntityRecognizer.findEntity(session.dialogData.args.intent.entities, 'mobileNumber');
+            
+                        // Checks if the food entity was found
+                        if (mobileNoEntity) {
+                            session.send('Thanks for telling me that \'%s\' is your mobile number', mobileNoEntity.entity);
+                            mobile.setMobileNumber(session, session.conversationData["username"], mobileNoEntity.entity); // <--
+            
+                        } else {
+                            session.send("No mobile identified!!!");
+                        }
+                    }
+            ]).triggerAction({
+                matches: 'setMobileNumber'
             });
-    bot.dialog('AddMobile', function (session, args) {
-                session.send('Enter your username please')
-                
-                            // Pulls out the food entity from the session if it exists
-                            //var foodEntity = builder.EntityRecognizer.findEntity(args.intent.entities, 'food');
-                
-                            // Checks if the for entity was found
-                            //if (foodEntity) {
-                              //  session.send('Calculating calories in %s...', foodEntity.entity);
-                               // Here you would call a function to get the foods nutrition information
-                
-                            //} else {
-                              //  session.send("No food identified! Please try again");
-                            //}
-        }).triggerAction({
-        matches: 'AddMobile'
-        });
 
     bot.dialog('BankLocation', function (session, args) {
                 
@@ -89,33 +125,24 @@ exports.startDialog = function (bot) {
         }).triggerAction({
                         matches: 'BankLocation'
          });
-    bot.dialog('DeleteMobileNumber', [
-          function (session, args, next) {
-              session.dialogData.args = args || {};
-              if (!session.conversationData["username"]) {
-                  builder.Prompts.text(session, "Enter a username to setup your account. (Delete)");
-              } else {
-                  next(); // Skip if we already have this info.
-              }
-          },
-          function (session, results,next) {
-  
-              session.send("You want to delete one of your favourite foods.");
-  
-              // Pulls out the food entity from the session if it exists
-              var foodEntity = builder.EntityRecognizer.findEntity(session.dialogData.args.intent.entities, 'food');
-  
-              // Checks if the for entity was found
-              if (foodEntity) {
-                  session.send('Deleting \'%s\'...', foodEntity.entity);
-                  food.deleteFavouriteFood(session,session.conversationData['username'],foodEntity.entity); //<--- CALLL WE WANT
-              } else {
-                  session.send("No food identified! Please try again");
-              }
-      }
-      ]).triggerAction({
-      matches: 'DeleteMobileNumber'
-      });
+         bot.dialog('CheckBalance', function (session, args) {
+            
+                    session.send('do you have an online account?')
+            
+                        // Pulls out the food entity from the session if it exists
+                        //var foodEntity = builder.EntityRecognizer.findEntity(args.intent.entities, 'food');
+            
+                        // Checks if the for entity was found
+                        //if (foodEntity) {
+                          //  session.send('Calculating calories in %s...', foodEntity.entity);
+                           // Here you would call a function to get the foods nutrition information
+            
+                        //} else {
+                          //  session.send("No food identified! Please try again");
+                        //}
+                }).triggerAction({
+                    matches: 'CheckBalance'
+                });
     bot.dialog('None', function (session, args) {
             
     session.send('Please try again')

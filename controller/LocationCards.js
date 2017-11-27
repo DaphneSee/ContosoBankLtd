@@ -32,7 +32,7 @@ function displayBankLocationCards(message, session) {
 
     }
 
-    //Displays restaurant hero card carousel in chat box 
+    //Displays bank store hero card carousel in chat box 
     var message = new builder.Message(session)
         .attachmentLayout(builder.AttachmentLayout.carousel)
         .attachments(attachment);
