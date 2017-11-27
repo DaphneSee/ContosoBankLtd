@@ -1,4 +1,5 @@
 var builder = require('botbuilder');
+var bankStore = require('./LocationCards');
 // Some sections have been omitted
 
 exports.startDialog = function (bot) {
@@ -45,10 +46,34 @@ exports.startDialog = function (bot) {
             }).triggerAction({
                 matches: 'CheckBalance'
             });
+    bot.dialog('AddMobile', function (session, args) {
+                session.send('Enter your username please')
+                
+                            // Pulls out the food entity from the session if it exists
+                            //var foodEntity = builder.EntityRecognizer.findEntity(args.intent.entities, 'food');
+                
+                            // Checks if the for entity was found
+                            //if (foodEntity) {
+                              //  session.send('Calculating calories in %s...', foodEntity.entity);
+                               // Here you would call a function to get the foods nutrition information
+                
+                            //} else {
+                              //  session.send("No food identified! Please try again");
+                            //}
+        }).triggerAction({
+        matches: 'AddMobile'
+        });
 
     bot.dialog('BankLocation', function (session, args) {
                 
-        session.send('Enter your location ?')
+        //session.send('enter location')
+        var LocationEntity = builder.EntityRecognizer.findEntity(args.intent.entities, 'Location');
+        if (LocationEntity) {
+            session.send('Looking for banks in %s...', LocationEntity.entity);
+            bankStore.displayBankLocationCards("bank", LocationEntity.entity, session);
+        } else {
+        session.send("No location identified! Please try again");
+                    }
                 
                             // Pulls out the food entity from the session if it exists
                             //var foodEntity = builder.EntityRecognizer.findEntity(args.intent.entities, 'food');
@@ -64,19 +89,16 @@ exports.startDialog = function (bot) {
         }).triggerAction({
                         matches: 'BankLocation'
          });
-         bot.dialog('DeleteFav', [
+    bot.dialog('DeleteMobileNumber', [
           function (session, args, next) {
-              if(!isAttachment(session)){
               session.dialogData.args = args || {};
               if (!session.conversationData["username"]) {
                   builder.Prompts.text(session, "Enter a username to setup your account. (Delete)");
               } else {
                   next(); // Skip if we already have this info.
               }
-          }
           },
           function (session, results,next) {
-          if (!isAttachment(session)) {
   
               session.send("You want to delete one of your favourite foods.");
   
@@ -90,27 +112,9 @@ exports.startDialog = function (bot) {
               } else {
                   session.send("No food identified! Please try again");
               }
-          }
       }
       ]).triggerAction({
-      matches: 'DeleteFav'
-      });
-      bot.dialog('WantFood', function (session, args) {
-          if(!isAttachment(session)){
-                      // Pulls out the food entity from the session if it exists
-          var foodEntity = builder.EntityRecognizer.findEntity(args.intent.entities, 'food');
-          
-                      // Checks if the for entity was found
-          if (foodEntity) {
-              session.send('Looking for restaurants which sell %s...', foodEntity.entity);
-              restaurant.displayRestaurantCards(foodEntity.entity, "auckland", session);
-          } else {
-          session.send("No food identified! Please try again");
-                      }
-                  }
-          
-          }).triggerAction({
-                  matches: 'WantFood'
+      matches: 'DeleteMobileNumber'
       });
     bot.dialog('None', function (session, args) {
             
