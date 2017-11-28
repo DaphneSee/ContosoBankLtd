@@ -142,36 +142,12 @@ exports.startDialog = function (bot) {
          bot.dialog('CheckBalance', function (session, args) {
             
                     session.send('do you have an online account?')
-            
-                        // Pulls out the food entity from the session if it exists
-                        //var foodEntity = builder.EntityRecognizer.findEntity(args.intent.entities, 'food');
-            
-                        // Checks if the for entity was found
-                        //if (foodEntity) {
-                          //  session.send('Calculating calories in %s...', foodEntity.entity);
-                           // Here you would call a function to get the foods nutrition information
-            
-                        //} else {
-                          //  session.send("No food identified! Please try again");
-                        //}
-                }).triggerAction({
+        }).triggerAction({
                     matches: 'CheckBalance'
-                });
+        });
     bot.dialog('None', function (session, args) {
             
     session.send('Please try again')
-            
-                        // Pulls out the food entity from the session if it exists
-                        //var foodEntity = builder.EntityRecognizer.findEntity(args.intent.entities, 'food');
-            
-                        // Checks if the for entity was found
-                        //if (foodEntity) {
-                          //  session.send('Calculating calories in %s...', foodEntity.entity);
-                           // Here you would call a function to get the foods nutrition information
-            
-                        //} else {
-                          //  session.send("No food identified! Please try again");
-                        //}
     }).triggerAction({
                     matches: 'None'
      });
