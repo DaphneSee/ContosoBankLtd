@@ -1,6 +1,7 @@
 var builder = require('botbuilder');
 var bankStore = require('./LocationCards');
 var mobile = require('./PersonalDetails');
+var qna = require('./QnA');
 // Some sections have been omitted
 
 exports.startDialog = function (bot) {
@@ -125,6 +126,19 @@ exports.startDialog = function (bot) {
         }).triggerAction({
                         matches: 'BankLocation'
          });
+
+    bot.dialog('QnA', [
+            function (session, args, next) {
+                session.dialogData.args = args || {};
+                builder.Prompts.text(session, "What is your question?");
+            },
+            function (session, results, next) {
+                qna.talkToQnA(session, results.response);
+            }
+        ]).triggerAction({
+            matches: 'QnA'
+        });
+
          bot.dialog('CheckBalance', function (session, args) {
             
                     session.send('do you have an online account?')

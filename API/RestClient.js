@@ -45,7 +45,7 @@ exports.postMobileNumber = function sentData(url, username, mobileNumber){
         }
       });
 };
-//delete food
+//delete mobile number
 exports.deleteMobileNumber = function deleteData(url,session, username ,favouriteFood, id, callback){
     var options = {
         //need id to delete
@@ -68,13 +68,13 @@ exports.deleteMobileNumber = function deleteData(url,session, username ,favourit
     })
 
 };
-
+//QnA
 exports.postQnAResults = function getData(url, session, question, callback){
     var options = {
         url: url,
         method: 'POST',
         headers: {
-            'Ocp-Apim-Subscription-Key': '[REFER TO IMAGE ABOVE]',
+            'Ocp-Apim-Subscription-Key': 'd56629dcd95047f485fec732164014f6',
             'Content-Type':'application/json'
         },
         json: {
