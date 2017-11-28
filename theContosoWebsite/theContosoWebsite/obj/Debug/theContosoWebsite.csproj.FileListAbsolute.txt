@@ -1,0 +1,9 @@
+C:\Users\daphne\Documents\MSA2017\ContosoBankLtd\theContosoWebsite\theContosoWebsite\bin\theContosoWebsite.dll.config
+C:\Users\daphne\Documents\MSA2017\ContosoBankLtd\theContosoWebsite\theContosoWebsite\bin\theContosoWebsite.dll
+C:\Users\daphne\Documents\MSA2017\ContosoBankLtd\theContosoWebsite\theContosoWebsite\bin\theContosoWebsite.pdb
+C:\Users\daphne\Documents\MSA2017\ContosoBankLtd\theContosoWebsite\theContosoWebsite\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\daphne\Documents\MSA2017\ContosoBankLtd\theContosoWebsite\theContosoWebsite\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\daphne\Documents\MSA2017\ContosoBankLtd\theContosoWebsite\theContosoWebsite\obj\Debug\theContosoWebsite.csprojResolveAssemblyReference.cache
+C:\Users\daphne\Documents\MSA2017\ContosoBankLtd\theContosoWebsite\theContosoWebsite\obj\Debug\theContosoWebsite.csproj.CoreCompileInputs.cache
+C:\Users\daphne\Documents\MSA2017\ContosoBankLtd\theContosoWebsite\theContosoWebsite\obj\Debug\theContosoWebsite.dll
+C:\Users\daphne\Documents\MSA2017\ContosoBankLtd\theContosoWebsite\theContosoWebsite\obj\Debug\theContosoWebsite.pdb
