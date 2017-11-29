@@ -8,7 +8,7 @@ exports.displayWelcomeCards = function displayWelcomeCards(session) {
 		builder.SuggestedActions.create(
 				session, [
 					builder.CardAction.imBack(session, "qna", "help"),
-					builder.CardAction.imBack(session, "getmobileNumber", "check mobile number"),
+					builder.CardAction.imBack(session, "get my mobile Number", "check mobile number"),
 					builder.CardAction.imBack(session, "banks in auckland", "bank stores in Auckland")
 				]
 			));

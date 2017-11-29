@@ -10,7 +10,15 @@ exports.getYelpData = function getData(url,bearer,session, callback){
         }
     });
 };
-
+exports.getCurrencyData = function getData(url,session, callback){
+        request.get(url, function(err,res,body){
+            if(err){
+                console.log(err);
+            }else {
+                callback(body,session);
+            }
+        });
+    };
 exports.getMobileNumber = function getData(url, session, username, callback){
     request.get(url, {'headers':{'ZUMO-API-VERSION': '2.0.0'}}, function handleGetRequest(err,res,body){
         if(err){
@@ -21,7 +29,7 @@ exports.getMobileNumber = function getData(url, session, username, callback){
         }
     });
 };
-//have to use exports when....
+//have to use exports when we use the function in other files.
 exports.postMobileNumber = function sentData(url, username, mobileNumber){
     var options = {
         url: url,

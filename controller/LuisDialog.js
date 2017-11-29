@@ -3,7 +3,7 @@ var bankStore = require('./LocationCards');
 var mobile = require('./PersonalDetails');
 var qna = require('./QnA');
 var welcome = require('./welcomeCards');
-// Some sections have been omitted
+var converter = require('./currencyConvert');
 
 exports.startDialog = function (bot) {
     
@@ -11,6 +11,12 @@ exports.startDialog = function (bot) {
     var recognizer = new builder.LuisRecognizer('https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/777ad1e9-cbe8-475b-98a6-d65dfdde35ee?subscription-key=cfca2d569671445e8749b6528940a169&verbose=true&timezoneOffset=0&q=');
 
     bot.recognizer(recognizer);
+
+    bot.dialog('currencyConverter', function (session, args) {
+        converter.displayCurrencyCards(session);
+    }).triggerAction({
+                matches: 'currencyConverter'
+    });
 
     bot.dialog('LostPassword', function (session, args) {
 
@@ -116,24 +122,17 @@ exports.startDialog = function (bot) {
             matches: 'QnA'
         });
 
-    bot.dialog('CheckBalance', function (session, args) {
-            
-                    session.send('do you have an online account?')
-    }).triggerAction({
-        matches: 'CheckBalance'
-    });
-
     bot.dialog('welcomeIntent', function (session, args) {
-        session.send('Hi, welcome to Contoso, how can I help you?')
+        session.send('Hello, welcome to Contoso! ')
         welcome.displayWelcomeCards(session);
     }).triggerAction({
     matches: 'welcomeIntent'
     });
 
-
     bot.dialog('None', function (session, args) {
             
-    session.send('Please try again')
+        session.send("Sorry, I didn't get that. Can you please try again?")
+        welcome.displayWelcomeCards(session);
     }).triggerAction({
                     matches: 'None'
      });

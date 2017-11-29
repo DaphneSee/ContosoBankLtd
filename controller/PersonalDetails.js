@@ -8,6 +8,7 @@ exports.displayMobileNumber = function getMobileNumber(session, username){
 function handleGetMobileNumberResponse(message, session, username) {
     var mobileNumberResponse = JSON.parse(message);
     var allMobile = [];
+    var found = false;
     for (var index in mobileNumberResponse) {
         //varname.nameOnColumnTable
         var usernameReceived = mobileNumberResponse[index].username;
@@ -15,18 +16,21 @@ function handleGetMobileNumberResponse(message, session, username) {
 
         //Convert to lower case whilst doing comparison to ensure the user can type whatever they like
         if (username.toLowerCase() === usernameReceived.toLowerCase()) {
-            //Add a comma after all favourite foods unless last one
+            found = true;
             if(mobileNumberResponse.length - 1) {
                 allMobile.push(mobileNumber);
             }
             else {
                 allMobile.push(mobileNumber + ', ');
             }
-        }        
-    }
-    
-    // Print all favourite foods for the user that is currently logged in
-    session.send("%s, your mobile number is: %s", username, mobileNumber);                
+        } 
+    }  
+    if (found){
+            session.send("%s, your mobile number is: %s", username, mobileNumber); 
+        }
+        else {
+            session.send("Invalid username.")
+        }              
     
 }
 

@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Contoso Banking</title>
+
+    <!--Linking CSS files to style the website-->
+    <link href="HomeStyle.css" rel="stylesheet" />
+
+    <script type="text/javascript">
+        function openChat() {
+            var frame = document.getElementById("chat-frame");
+            frame.className = "";
+            var img = document.getElementById("chat-button");
+            img.className = "hide";
+        }
+
+        function closeChat() {
+            var frame = document.getElementById("chat-frame");
+            frame.className = "hide";
+            var img = document.getElementById("chat-button");
+            img.className = "";
+        }
+        //for when the screen size is small
+        function expandNavBar() {
+            var x = document.getElementById("navBar");
+            if (x.className === "navBar") {
+                x.className += " responsive";
+            } else {
+                x.className = "navBar";
+            }
+        }
+    </script>
+
+</head>
+<body>
+    <!--<div id="titleBlock">
+        <img src="images/BankLogo2.png" id="logo" />
+    </div>-->
+
+    <div class="navBar" id="navBar">
+        <img src="images/BankLogo2.png" id="logo" />
+        <a class="active" href="#home">Home</a>
+        <a>Services</a>
+        <a>Contact</a>
+        <a>About</a>
+        <a>Login</a>
+        <input type="text" placeholder="Search..">
+        <a href="javascript:void(0);" class="icon" onclick="expandNavBar()">&#9776;menu</a>
+    </div>
+
+    <div id="banner">
+        <img id="join-us-banner" src="images/sheepscenery.png" alt="join us" />
+    </div>
+
+    <div id="chat">
+        <img id="chat-button" src="images/ChatLogo2.png" onclick="openChat()" />
+        <div id="chat-frame" class="hide">
+            <iframe src='https://webchat.botframework.com/embed/ContosoBankBotC?s=Y7-KzgJXEQw.cwA.FZ4.7hx0V86pX-HNXgJ9qruEOYV9PPJRqgQ9KyXD8gKFy94'></iframe>
+            <img src="images/down_arrow_white.png" onclick="closeChat()" />
+        </div>
+    </div>
+
+</body>
+</html>
