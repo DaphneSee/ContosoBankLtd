@@ -27,7 +27,7 @@
     font-size: 20px;
 }
 
-    .navBar a.active {
+.navBar a.active {
         background-color: #2196F3;
         color: white;
     }
@@ -48,7 +48,7 @@
 #join-us-banner {
     display: block;
     margin: auto;
-    width: 98%;
+    width: 99%;
 }
 
 #chat {
@@ -72,7 +72,7 @@
     width: 300px;
 }
 
-    #chat-frame img {
+#chat-frame img {
         width: 30px;
         position: absolute;
         right: 10px;
