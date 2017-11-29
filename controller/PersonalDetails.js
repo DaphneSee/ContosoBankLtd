@@ -1,7 +1,8 @@
 var rest = require('../API/Restclient');
+var builder = require('botbuilder');
 
 exports.displayMobileNumber = function getMobileNumber(session, username){
-    var url = 'https://bankbotcontoso.azurewebsites.net/tables/bankBotInfo';
+    var url = 'http://contosobankbott.azurewebsites.net/tables/CustomerInfo';
     rest.getMobileNumber(url, session, username, handleGetMobileNumberResponse)
 };
 
@@ -29,13 +30,13 @@ function handleGetMobileNumberResponse(message, session, username) {
             session.send("%s, your mobile number is: %s", username, mobileNumber); 
         }
         else {
-            session.send("Invalid username.")
+            session.send("Invalid username, please try again");
         }              
     
 }
 
 exports.deleteMobileNumber = function deleteMobileNumber(session,username){
-    var url  = 'https://bankbotcontoso.azurewebsites.net/tables/bankBotInfo';
+    var url  = 'http://contosobankbott.azurewebsites.net/tables/CustomerInfo';
 
 
     rest.getMobileNumber(url,session, username,function(message,session,username){
@@ -59,6 +60,6 @@ function handleDeleteMobileNumberResponse(body,session,username, favouriteFood){
 }
 
 exports.setMobileNumber = function postMobileNumber(session, username, mobileNumber){
-    var url = 'https://bankbotcontoso.azurewebsites.net/tables/bankBotInfo';
+    var url = 'http://contosobankbott.azurewebsites.net/tables/CustomerInfo';
     rest.postMobileNumber(url, username, mobileNumber);
 };

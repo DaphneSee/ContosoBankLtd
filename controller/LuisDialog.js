@@ -3,7 +3,7 @@ var bankStore = require('./LocationCards');
 var mobile = require('./PersonalDetails');
 var qna = require('./QnA');
 var welcome = require('./welcomeCards');
-var converter = require('./currencyConvert');
+//var converter = require('./currencyConvert');
 
 exports.startDialog = function (bot) {
     
@@ -18,12 +18,6 @@ exports.startDialog = function (bot) {
                 matches: 'currencyConverter'
     });
 
-    bot.dialog('LostPassword', function (session, args) {
-
-        session.send('you have forgotten your password, do you want to reset it?')
-    }).triggerAction({
-        matches: 'LostPassword'
-    });
     bot.dialog('getMobileNumber', [
         function (session, args, next) {
             session.dialogData.args = args || {};        
@@ -69,11 +63,11 @@ exports.startDialog = function (bot) {
     bot.dialog('setMobileNumber', [
                 function (session, args, next) {
                     session.dialogData.args = args || {};        
-                    if (!session.conversationData["username"]) {
+                    //if (!session.conversationData["username"]) {
                         builder.Prompts.text(session, "Enter a username to set your mobile number.");                
-                    } else {
-                        next(); // Skip if we already have this info.
-                    }
+                    //} else {
+                      //  next(); // Skip if we already have this info.
+                    //}
                 },
                 function (session, results, next) {
         
@@ -123,7 +117,7 @@ exports.startDialog = function (bot) {
         });
 
     bot.dialog('welcomeIntent', function (session, args) {
-        session.send('Hello, welcome to Contoso! ')
+        session.send('Hi, welcome to Contoso! ')
         welcome.displayWelcomeCards(session);
     }).triggerAction({
     matches: 'welcomeIntent'
@@ -132,7 +126,7 @@ exports.startDialog = function (bot) {
     bot.dialog('None', function (session, args) {
             
         session.send("Sorry, I didn't get that. Can you please try again?")
-        welcome.displayWelcomeCards(session);
+    
     }).triggerAction({
                     matches: 'None'
      });
